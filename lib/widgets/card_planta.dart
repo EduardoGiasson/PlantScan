@@ -1,18 +1,17 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import '../model/planta.dart';
 
 class CardPlanta extends StatelessWidget {
 
   final Planta planta;
   final VoidCallback? onTap;
+  final VoidCallback? onDelete;
 
   const CardPlanta({
     super.key,
     required this.planta,
     this.onTap,
+    this.onDelete,
   });
 
   @override
@@ -29,13 +28,7 @@ class CardPlanta extends StatelessWidget {
 
         onTap: onTap,
 
-        leading: planta.fotoPath != null
-            ? CircleAvatar(
-          backgroundImage: FileImage(
-            File(planta.fotoPath!),
-          ),
-        )
-            : const Icon(
+        leading: const Icon(
           Icons.local_florist,
           color: Colors.green,
         ),
@@ -46,7 +39,16 @@ class CardPlanta extends StatelessWidget {
           "${planta.descricao} - ${planta.porcentagemIdentificacao}",
         ),
 
+        trailing: IconButton(
+          icon: const Icon(
+            Icons.delete,
+            color: Colors.red,
+          ),
+          onPressed: onDelete,
+        ),
+
       ),
+
     );
   }
 }
